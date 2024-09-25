@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif; /* Main font style for the application */
+    background-color: #f4f4f4; /* Light grey background color */
+    color: #333; /* Dark grey text color */
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add padding around the content */
+}
+
+header {
+    text-align: center; /* Center align the header text */
+    margin-bottom: 20px; /* Space below the header */
+}
+
+h1 {
+    color: #007BFF; /* Blue color for the main title */
+}
+
+main {
+    max-width: 600px; /* Max width for the main content */
+    margin: 0 auto; /* Center the main content */
+    background: white; /* White background for the main content area */
+    border-radius: 8px; /* Rounded corners for the content area */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding inside the main content */
+}
+
+section {
+    margin: 20px 0; /* Space between sections */
+}
+
+label {
+    display: block; /* Block display for labels */
+    margin-bottom: 10px; /* Space below labels */
+}
+
+select {
+    width: 100%; /* Full width for dropdowns */
+    padding: 10px; /* Padding inside the dropdowns */
+    margin-bottom: 20px; /* Space below dropdowns */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners for dropdowns */
+}
+
+button {
+    padding: 10px 20px; /* Padding for button */
+    font-size: 16px; /* Font size for button text */
+    color: white; /* Text color for button */
+    background-color: #007BFF; /* Blue background for button */
+    border: none; /* No border for button */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on button hover */
+}
+
+#resultSection {
+    margin-top: 20px; /* Space above the result section */
+    text-align: center; /* Center align the result text */
+}
+
+canvas {
+    margin-top: 20px; /* Space above the chart */
+}
