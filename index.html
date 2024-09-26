@@ -9,6 +9,7 @@
     <!-- Add Select2 for searchable dropdowns -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Add jQuery -->
 </head>
 <body>
     <header>
@@ -16,27 +17,27 @@
     </header>
     <main>
         <section>
-            <label for="fighter1">Select Fighter 1:</label> <!-- Label for Fighter 1 dropdown -->
-            <select id="fighter1" class="fighter-select"></select> <!-- Dropdown for selecting Fighter 1 -->
+            <label for="fighter1">Select Fighter 1:</label>
+            <select id="fighter1" class="fighter-select"></select>
 
-            <label for="fighter2">Select Fighter 2:</label> <!-- Label for Fighter 2 dropdown -->
-            <select id="fighter2" class="fighter-select"></select> <!-- Dropdown for selecting Fighter 2 -->
+            <label for="fighter2">Select Fighter 2:</label>
+            <select id="fighter2" class="fighter-select"></select>
 
-            <button id="fightButton">Fight!</button> <!-- Button to trigger the fight -->
+            <button id="fightButton">Fight!</button>
         </section>
         
         <!-- Fighter details section -->
         <section id="fighterDetails">
             <h2>Fighter 1 Details:</h2>
-            <div id="fighter1Details"></div> <!-- Placeholder for Fighter 1 details -->
+            <div id="fighter1Details"></div>
             
             <h2>Fighter 2 Details:</h2>
-            <div id="fighter2Details"></div> <!-- Placeholder for Fighter 2 details -->
+            <div id="fighter2Details"></div>
         </section>
 
         <section id="resultSection">
-            <h2 id="result"></h2> <!-- Area to display the result of the fight -->
-            <canvas id="probabilityChart" width="400" height="400"></canvas> <!-- Canvas for the probability chart -->
+            <h2 id="result"></h2>
+            <canvas id="probabilityChart" width="400" height="400"></canvas>
         </section>
     </main>
     <script src="app.js"></script> <!-- Link to the main JavaScript file -->
@@ -49,50 +50,6 @@
                 allowClear: true
             });
         });
-    </script>
-
-    <!-- Script to fetch fighters and populate dropdowns -->
-    <script>
-        const apiKey = '4d67809696mshf8762356cd063b1p1e205bjsn641077296062'; // Your API key
-        const url = 'https://chirikutsikuda-mma-stats.p.rapidapi.com/fighters'; // API endpoint
-
-        // Function to load fighters into the dropdowns
-        function loadFighters() {
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'x-rapidapi-host': 'chirikutsikuda-mma-stats.p.rapidapi.com',
-                    'x-rapidapi-key': apiKey,
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Populate fighter1 and fighter2 dropdowns
-                const fighter1Dropdown = document.getElementById('fighter1');
-                const fighter2Dropdown = document.getElementById('fighter2');
-
-                data.forEach(fighter => {
-                    const option1 = document.createElement('option');
-                    option1.value = fighter.id; // Use the correct property for fighter ID
-                    option1.textContent = fighter.name; // Use the correct property for fighter name
-                    fighter1Dropdown.appendChild(option1);
-
-                    const option2 = document.createElement('option');
-                    option2.value = fighter.id; // Use the correct property for fighter ID
-                    option2.textContent = fighter.name; // Use the correct property for fighter name
-                    fighter2Dropdown.appendChild(option2);
-                });
-            })
-            .catch(error => console.error('Error fetching fighters:', error));
-        }
-
-        // Call loadFighters on page load
-        window.onload = loadFighters;
     </script>
 </body>
 </html>
