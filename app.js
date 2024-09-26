@@ -1,47 +1,45 @@
-// Fetch fighters based on a search term and populate the dropdowns
-function fetchFighters(searchTerm = '') {
-    const apiKey = '4d67809696mshf8762356cd063b1p1e205bjsn641077296062'; // Your API key
-    const url = `https://mma-stats.p.rapidapi.com/search?q=${searchTerm}`;
+// Fetch fighters from the API and populate the dropdowns
+const apiKey = '4d67809696mshf8762356cd063b1p1e205bjsn641077296062'; // Your API key
 
-    const headers = {
-        "x-rapidapi-host": "mma-stats.p.rapidapi.com",
-        "x-rapidapi-key": apiKey
-    };
+// Function to load fighters based on a search term
+function loadFighters(searchTerm = '') { // Default to empty string if no term is provided
+    const url = `https://mma-stats.p.rapidapi.com/search?name=${searchTerm}`;
 
-    fetch(url, { headers })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const fighters = data.results; // Adjust based on the actual structure of the response
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            "x-rapidapi-host": "mma-stats.p.rapidapi.com",
+            "x-rapidapi-key": apiKey
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Check if data contains fighters
+        if (data && data.fighters) {
             const fighter1Select = document.getElementById('fighter1');
             const fighter2Select = document.getElementById('fighter2');
-
+            
             // Clear existing options
             fighter1Select.innerHTML = '';
             fighter2Select.innerHTML = '';
 
-            // Populate the dropdowns with fighter names
-            fighters.forEach(fighter => {
-                const option1 = document.createElement('option');
-                option1.value = fighter.name; // Assuming the fighter object has a 'name' property
-                option1.textContent = fighter.name;
-                fighter1Select.appendChild(option1);
+            // Populate the dropdowns
+            data.fighters.forEach(fighter => {
+                const option = document.createElement('option');
+                option.value = fighter.id; // or use a unique identifier for each fighter
+                option.textContent = fighter.name; // Adjust based on the actual data structure
 
-                const option2 = document.createElement('option');
-                option2.value = fighter.name; // Assuming the fighter object has a 'name' property
-                option2.textContent = fighter.name;
-                fighter2Select.appendChild(option2);
+                fighter1Select.appendChild(option.cloneNode(true)); // Append option for Fighter 1
+                fighter2Select.appendChild(option); // Append same option for Fighter 2
             });
-
-            // Refresh Select2 dropdown
-            $('.fighter-select').select2(); // Re-initialize Select2 to reflect new options
-        })
-        .catch(error => console.error('Error:', error));
+        } else {
+            console.error('No fighters found');
+        }
+    })
+    .catch(error => console.error('Error fetching fighters:', error));
 }
 
-// Call the function with an empty search term to initially populate the dropdown
-fetchFighters();
+// Call loadFighters when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    loadFighters(); // Call with empty string to load fighters on page load
+});
