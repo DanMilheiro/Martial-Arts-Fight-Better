@@ -1,10 +1,30 @@
-def calculate_odds(fighter1_stats, fighter2_stats):
-    odds1 = fighter1_stats['strength'] * 0.5 + fighter1_stats['stamina'] * 0.5
-    odds2 = fighter2_stats['strength'] * 0.5 + fighter2_stats['stamina'] * 0.5
-    return odds1, odds2
-
-fighter1 = {'strength': 85, 'stamina': 90}
-fighter2 = {'strength': 80, 'stamina': 85}
-
-odds = calculate_odds(fighter1, fighter2)
-print(f"Odds: Fighter 1: {odds[0]}, Fighter 2: {odds[1]}")
+def calculate_odds(fighter1, fighter2):
+    # Strength is calculated dynamically based on height and weight
+    fighter1_strength = calculate_strength(fighter1.height, fighter1.weight)
+    fighter2_strength = calculate_strength(fighter2.height, fighter2.weight)
+    
+    # Weighted scores for all attributes, including stamina and strength
+    f1_score = (
+        fighter1.grappling * 0.15 + 
+        fighter1.striking * 0.2 + 
+        fighter1.submission * 0.2 + 
+        fighter1.stamina * 0.15 + 
+        fighter1_strength * 0.2 + 
+        fighter1.recent_activity * 0.1
+    )
+    
+    f2_score = (
+        fighter2.grappling * 0.15 + 
+        fighter2.striking * 0.2 + 
+        fighter2.submission * 0.2 + 
+        fighter2.stamina * 0.15 + 
+        fighter2_strength * 0.2 + 
+        fighter2.recent_activity * 0.1
+    )
+    
+    total = f1_score + f2_score
+    
+    f1_odds = (f1_score / total) * 100
+    f2_odds = (f2_score / total) * 100
+    
+    return f1_odds, f2_odds
