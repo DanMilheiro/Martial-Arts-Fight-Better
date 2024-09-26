@@ -6,6 +6,9 @@
     <title>Martial Arts Fight Simulator</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for visual representation -->
+    <!-- Add Select2 for searchable dropdowns -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
     <header>
@@ -14,19 +17,38 @@
     <main>
         <section>
             <label for="fighter1">Select Fighter 1:</label> <!-- Label for Fighter 1 dropdown -->
-            <select id="fighter1"></select> <!-- Dropdown for selecting Fighter 1 -->
+            <select id="fighter1" class="fighter-select"></select> <!-- Dropdown for selecting Fighter 1 -->
 
             <label for="fighter2">Select Fighter 2:</label> <!-- Label for Fighter 2 dropdown -->
-            <select id="fighter2"></select> <!-- Dropdown for selecting Fighter 2 -->
+            <select id="fighter2" class="fighter-select"></select> <!-- Dropdown for selecting Fighter 2 -->
 
             <button id="fightButton">Fight!</button> <!-- Button to trigger the fight -->
         </section>
         
+        <!-- Fighter details section -->
+        <section id="fighterDetails">
+            <h2>Fighter 1 Details:</h2>
+            <div id="fighter1Details"></div> <!-- Placeholder for Fighter 1 details -->
+            
+            <h2>Fighter 2 Details:</h2>
+            <div id="fighter2Details"></div> <!-- Placeholder for Fighter 2 details -->
+        </section>
+
         <section id="resultSection">
             <h2 id="result"></h2> <!-- Area to display the result of the fight -->
             <canvas id="probabilityChart" width="400" height="400"></canvas> <!-- Canvas for the probability chart -->
         </section>
     </main>
     <script src="app.js"></script> <!-- Link to the main JavaScript file -->
+    
+    <!-- Initialize Select2 for searchable fighter dropdowns -->
+    <script>
+        $(document).ready(function() {
+            $('.fighter-select').select2({
+                placeholder: 'Select a Fighter',
+                allowClear: true
+            });
+        });
+    </script>
 </body>
 </html>
